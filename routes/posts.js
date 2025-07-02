@@ -70,7 +70,6 @@ router.put('/:id', (req, res) => {
 });
 
 
-
 // DESTROY
 router.delete('/:id', (req, res) => {
     const id = parseInt(req.params.id);
