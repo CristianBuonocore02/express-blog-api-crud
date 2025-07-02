@@ -5,17 +5,18 @@ const router = express.Router();
 const posts = require('../data/posts');
 
 // INDEX
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.json(posts); // restituisce tutti i post
 });
 
 // SHOW
-router.get('/:id', function (req, res) {
+router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const post = posts.find(p => p.id === id);
 
     if (!post) {
-        return res.status(404).json({
+        res.status(404);
+        return res.json({
             error: 'Not Found',
             message: 'Post non trovato'
         });
@@ -24,21 +25,32 @@ router.get('/:id', function (req, res) {
     res.json(post);
 });
 
-// DESTROY
-router.delete('/:id', function (req, res) {
-    const id = parseInt(req.params.id);
-    const index = posts.findIndex(p => p.id === id);
 
-    if (index === -1) {
-        return res.status(404).json({
+//POST
+router.post("/", (req, res) => {
+    console.log(req.body);
+    res.send("inoltrato")
+
+})
+
+
+// DESTROY
+router.delete('/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const post = posts.find(p => p.id === id);
+
+    if (!post) {
+        res.status(404);
+        return res.json({
             error: 'Not Found',
             message: 'Post non trovato'
         });
     }
 
-    posts.splice(index, 1);
+    posts.splice(post, 1);
     console.log(posts); // stampiamo la lista aggiornata
     res.sendStatus(204); // nessun contenuto
 });
+
 
 module.exports = router;
