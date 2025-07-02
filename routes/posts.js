@@ -29,7 +29,20 @@ router.get('/:id', (req, res) => {
 //POST
 router.post("/", (req, res) => {
     console.log(req.body);
-    res.send("inoltrato")
+    const newPostId = posts[posts.length - 1].id + 1;
+
+    const newPost = {
+        id: newPostId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+
+    posts.push(newPost);
+    console.log(posts);
+
+    res.status(201).json(newPost);
 
 })
 
