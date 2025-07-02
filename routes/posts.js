@@ -46,6 +46,30 @@ router.post("/", (req, res) => {
 
 })
 
+//PUT
+router.put('/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const post = posts.find(p => p.id === id);
+
+    if (!post) {
+        res.status(404);
+        return res.json({
+            error: 'Not Found',
+            message: 'Post non trovato'
+        });
+    }
+
+    post.title = req.body.name;
+    post.image = req.body.image;
+    post.content = req.body.ingredients;
+
+
+    console.log(posts);
+    res.json(post);
+
+});
+
+
 
 // DESTROY
 router.delete('/:id', (req, res) => {
