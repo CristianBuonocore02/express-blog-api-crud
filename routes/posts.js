@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const notFound = require("./middlewares/notFound");
 
 // Importiamo i dati
 const posts = require('../data/posts');
@@ -89,4 +90,5 @@ router.delete('/:id', (req, res) => {
 });
 
 
+module.exports = notFound;
 module.exports = router;
